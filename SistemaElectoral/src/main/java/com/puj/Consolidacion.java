@@ -2,6 +2,7 @@ package com.puj;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 // HU-13: Consolidación y publicación de resultados
 // HU-14: Consulta de resultados por territorio y candidato
@@ -82,5 +83,20 @@ public class Consolidacion {
     @Override
     public String toString() {
         return "Consolidacion{proceso=" + proceso.getId() + ", actas=" + actas.size() + ", estado=" + estadoPublicacion + "}";
+    }
+    private EstrategiaConsolidacion estrategia;
+
+    public void setEstrategia(EstrategiaConsolidacion estrategia) {
+        if (estrategia == null) {
+            throw new IllegalArgumentException("La estrategia de consolidación no puede ser nula.");
+        }
+        this.estrategia = estrategia;
+    }
+
+    public Map<String, Integer> ejecutarAnalisis(List<Acta> actas) {
+        if (this.estrategia == null) {
+            throw new IllegalStateException("Debe asignar una estrategia antes de ejecutar el análisis.");
+        }
+        return this.estrategia.analizar(actas);
     }
 }
