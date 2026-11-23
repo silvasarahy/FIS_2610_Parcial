@@ -9,6 +9,12 @@ public class Candidato {
     private String estado;
 
     public Candidato(String documento, String nombre, OrganizacionPolitica organizacion) {
+        if (documento == null || documento.trim().isEmpty()) {
+            throw new IllegalArgumentException("El documento del candidato no puede estar vacío");
+        }
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre del candidato no puede estar vacío");
+        }
         // HU-06: solo se inscribe con una organización habilitada
         if (organizacion != null && !organizacion.estaHabilitada()) {
             throw new IllegalStateException("La organización " + organizacion.getNombre() + " no está habilitada");
