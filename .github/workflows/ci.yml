@@ -1,0 +1,33 @@
+name: CI Pipeline - SistemaElectoral
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+  pull_request:
+    branches: [ "main", "dev" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: SistemaElectoral
+
+    steps:
+      - name: 1. Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: 2. Configurar JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+          cache-dependency-path: SistemaElectoral/pom.xml
+
+      - name: 3. Compilar proyecto
+        run: mvn clean compile
+
+      - name: 4. Ejecutar pruebas unitarias
+        run: mvn test
