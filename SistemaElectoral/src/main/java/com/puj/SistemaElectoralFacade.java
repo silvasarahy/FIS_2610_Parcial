@@ -14,8 +14,17 @@ public class SistemaElectoralFacade {
     private final List<Incidente> incidentes;
     private final List<Reclamacion> reclamaciones;
     private final List<RegistroAuditoria> historialAuditoria;
+    private Usuario usuarioAuditor;
 
     public SistemaElectoralFacade() {
+        this(new Usuario("SYSTEM", "Sistema", "SISTEMA"));
+    }
+
+    public SistemaElectoralFacade(Usuario usuarioAuditor) {
+        if (usuarioAuditor == null) {
+            throw new IllegalArgumentException("El usuario auditor no puede ser nulo");
+        }
+        this.usuarioAuditor = usuarioAuditor;
         this.territorios = new HashMap<>();
         this.mesasRegistradas = new HashMap<>();
         this.actasPorMesa = new HashMap<>();
@@ -121,8 +130,15 @@ public class SistemaElectoralFacade {
         return Collections.unmodifiableList(historialAuditoria);
     }
 
+    public void setUsuarioAuditor(Usuario usuarioAuditor) {
+        if (usuarioAuditor == null) {
+            throw new IllegalArgumentException("El usuario auditor no puede ser nulo");
+        }
+        this.usuarioAuditor = usuarioAuditor;
+    }
+
     private void registrarEventoAuditoria(String accion, String detalle) {
-        // Ajusta los argumentos según el constructor exacto de tu clase RegistroAuditoria.java
-        historialAuditoria.add(new RegistroAuditoria(accion, detalle));
+        String accionCompleta = accion + (detalle == null || detalle.isBlank() ? "" : " - " + detalle);
+        historialAuditoria.add(new RegistroAuditoria(usuarioAuditor, accionCompleta));
     }
 }
