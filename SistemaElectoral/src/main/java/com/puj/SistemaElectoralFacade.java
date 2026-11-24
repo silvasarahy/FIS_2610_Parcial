@@ -92,6 +92,9 @@ public class SistemaElectoralFacade {
         if (reclamacion == null) {
             throw new IllegalArgumentException("La reclamación no puede ser nula");
         }
+        if (reclamacion.getMotivo() == null || reclamacion.getMotivo().trim().isEmpty()) {
+            throw new IllegalArgumentException("El motivo de la reclamación es obligatorio");
+        }
         Acta actaActual = actasPorMesa.get(numeroMesa.trim());
         if (actaActual == null) {
             throw new IllegalArgumentException("No existe un acta cerrada para la mesa " + numeroMesa);
