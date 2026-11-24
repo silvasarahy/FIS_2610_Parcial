@@ -8,6 +8,12 @@ public class OrganizacionPolitica {
     private String estadoParticipacion;
 
     public OrganizacionPolitica(String id, String nombre) {
+        if (id == null || id.trim().isEmpty()) {
+            throw new IllegalArgumentException("El id de la organización no puede ser nulo o vacío");
+        }
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre de la organización no puede ser nulo o vacío");
+        }
         this.id = id;
         this.nombre = nombre;
         this.estadoParticipacion = "INSCRITA";

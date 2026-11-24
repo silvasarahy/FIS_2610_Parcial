@@ -13,9 +13,7 @@ public class Alerta {
         this.resuelta = false;
     }
 
-    public void resolver() {
-        resuelta = true;
-    }
+    public void resolver() { resuelta = true; }
 
     public String getDescripcion() { return descripcion; }
     public Acta getActa() { return acta; }
