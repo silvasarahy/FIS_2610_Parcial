@@ -2,9 +2,6 @@ package com.puj;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ActaTest {
@@ -16,12 +13,13 @@ public class ActaTest {
     void setUp() {
         Departamento depto = new Departamento("11", "Bogotá D.C.");
         Municipio muni = new Municipio("11001", "Bogotá", depto);
-        PuestoVotacion puesto = new PuestoVotacion("P01", "Corferias", "Dirección", muni);
+        PuestoVotacion puesto = new PuestoVotacion("P01", "Corferias", "Cra 37 # 24-67", muni);
         mesaCerrada = new Mesa(1, 100, puesto);
         mesaCerrada.instalar();
         mesaCerrada.cerrar();
 
         OrganizacionPolitica partido = new OrganizacionPolitica("OP1", "Partido A");
+        partido.habilitar();
         candidato1 = new Candidato("1010", "Ana Gómez", partido);
     }
 
@@ -30,7 +28,7 @@ public class ActaTest {
     void testCrearActaMesaNoCerrada_Negativa() {
         Departamento depto = new Departamento("11", "Bogotá D.C.");
         Municipio muni = new Municipio("11001", "Bogotá", depto);
-        PuestoVotacion puesto = new PuestoVotacion("P01", "Corferias", "Dirección", muni);
+        PuestoVotacion puesto = new PuestoVotacion("P01", "Corferias", "Cra 37 # 24-67", muni);
         Mesa mesaAbierta = new Mesa(2, 50, puesto);
         mesaAbierta.instalar();
 
@@ -41,7 +39,7 @@ public class ActaTest {
     void testCrearActaMesaCensoCero_Limite() {
         Departamento depto = new Departamento("11", "Bogotá D.C.");
         Municipio muni = new Municipio("11001", "Bogotá", depto);
-        PuestoVotacion puesto = new PuestoVotacion("P01", "Corferias", "Dirección", muni);
+        PuestoVotacion puesto = new PuestoVotacion("P01", "Corferias", "Cra 37 # 24-67", muni);
         Mesa mesaCero = new Mesa(3, 0, puesto);
         mesaCero.instalar();
         mesaCero.cerrar();

@@ -8,6 +8,7 @@ public class ResultadoCandidatoTest {
     @Test
     void testCrearResultadoVotosNegativos_Negativa() {
         OrganizacionPolitica partido = new OrganizacionPolitica("OP1", "Partido A");
+        partido.habilitar();
         Candidato candidato = new Candidato("1010", "Carlos Ruiz", partido);
 
         assertThrows(IllegalArgumentException.class, () -> new ResultadoCandidato(candidato, -1));
@@ -16,6 +17,7 @@ public class ResultadoCandidatoTest {
     @Test
     void testCrearResultadoCeroYAltoVotos_Limite() {
         OrganizacionPolitica partido = new OrganizacionPolitica("OP1", "Partido A");
+        partido.habilitar();
         Candidato candidato = new Candidato("1010", "Carlos Ruiz", partido);
 
         ResultadoCandidato resCero = new ResultadoCandidato(candidato, 0);
