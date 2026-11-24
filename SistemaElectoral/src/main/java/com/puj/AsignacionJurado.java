@@ -10,6 +10,15 @@ public class AsignacionJurado {
     private String motivoRetiro;
 
     public AsignacionJurado(Jurado jurado, Mesa mesa, String funcion) {
+        if (jurado == null) {
+            throw new IllegalArgumentException("El jurado asignado no puede ser nulo");
+        }
+        if (mesa == null) {
+            throw new IllegalArgumentException("La mesa asignada no puede ser nula");
+        }
+        if (funcion == null || funcion.trim().isEmpty()) {
+            throw new IllegalArgumentException("La función del jurado no puede estar vacía");
+        }
         this.jurado = jurado;
         this.mesa = mesa;
         this.funcion = funcion;
@@ -17,6 +26,12 @@ public class AsignacionJurado {
     }
 
     public void retirar(String motivo) {
+        if (!this.activa) {
+            throw new IllegalStateException("La asignación ya fue retirada previamente");
+        }
+        if (motivo == null || motivo.trim().isEmpty()) {
+            throw new IllegalArgumentException("Debe indicar un motivo de retiro");
+        }
         this.activa = false;
         this.motivoRetiro = motivo;
     }

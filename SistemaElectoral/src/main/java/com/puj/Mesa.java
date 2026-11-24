@@ -44,4 +44,5 @@ public class Mesa {
     public String toString() {
         return "Mesa{numero=" + numero + ", censo=" + censo + ", puesto=" + puesto.getNombre() + ", estado=" + estado + "}";
     }
+
 }

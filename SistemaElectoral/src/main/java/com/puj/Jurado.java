@@ -8,6 +8,12 @@ public class Jurado {
     private String contacto;
 
     public Jurado(String documento, String nombre, String contacto) {
+        if (documento == null || documento.trim().isEmpty()) {
+            throw new IllegalArgumentException("El documento del jurado no puede estar vacío");
+        }
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre del jurado no puede estar vacío");
+        }
         this.documento = documento;
         this.nombre = nombre;
         this.contacto = contacto;
