@@ -14,10 +14,16 @@ public class Reclamacion {
     private String decision;
 
     public Reclamacion(String id, String solicitante, LocalDate fecha, String motivo, Acta acta) {
+        if (motivo == null || motivo.trim().isEmpty()) {
+            throw new IllegalArgumentException("El motivo de la reclamación es obligatorio");
+        }
+        if (acta == null) {
+            throw new IllegalArgumentException("El acta de la reclamación no puede ser nula");
+        }
         this.id = id;
         this.solicitante = solicitante;
         this.fecha = fecha;
-        this.motivo = motivo;
+        this.motivo = motivo.trim();
         this.acta = acta;
         this.estado = "RADICADA";
     }

@@ -10,8 +10,14 @@ public class RegistroAuditoria {
     private LocalDateTime fechaHora;
 
     public RegistroAuditoria(Usuario usuario, String accion) {
+        if (usuario == null) {
+            throw new IllegalArgumentException("El usuario auditor no puede ser nulo");
+        }
+        if (accion == null || accion.trim().isEmpty()) {
+            throw new IllegalArgumentException("La acción auditada no puede estar vacía");
+        }
         this.usuario = usuario;
-        this.accion = accion;
+        this.accion = accion.trim();
         this.fechaHora = LocalDateTime.now();
     }
 
