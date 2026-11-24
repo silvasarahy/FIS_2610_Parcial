@@ -2,7 +2,6 @@ package com.puj;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -24,12 +23,13 @@ public class ConsolidacionStrategyTest {
 
         depto = new Departamento("11", "Bogotá D.C.");
         muni = new Municipio("11001", "Bogotá", depto);
-        PuestoVotacion puesto = new PuestoVotacion("P01", "Unicentro", "Dirección", muni);
+        PuestoVotacion puesto = new PuestoVotacion("P01", "Unicentro", "Cra 15 # 124-30", muni);
         Mesa mesa = new Mesa(1, 100, puesto);
         mesa.instalar();
         mesa.cerrar();
 
         OrganizacionPolitica partido = new OrganizacionPolitica("OP1", "Partido A");
+        partido.habilitar();
         cand1 = new Candidato("1010", "Laura Pérez", partido);
 
         actaCerrada = new Acta("ACT-01", mesa);
@@ -67,6 +67,7 @@ public class ConsolidacionStrategyTest {
     void testConsultasTerritorialesCandidatoInexistente_Negativa() {
         consolidacion.agregarActa(actaCerrada);
         OrganizacionPolitica partido = new OrganizacionPolitica("OP2", "Partido B");
+        partido.habilitar();
         Candidato otro = new Candidato("2020", "Sin Votos", partido);
 
         assertEquals(0, consolidacion.totalVotosCandidato(otro));
