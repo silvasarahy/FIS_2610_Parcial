@@ -1,69 +1,26 @@
 package com.puj;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+// HU-10: Alerta generada cuando un acta no cumple una regla de consistencia
+public class Alerta {
 
-/**
- * Sujeto (Subject) del patrón comportamental Observer.
- * Gestiona la suscripción de observadores (Usuario: autoridades, testigos y analistas)
- * y difunde automáticamente cada Alerta generada por incidentes, reclamaciones o cierre de Mesa.
- */
-public class NotificadorAlertas {
+    private String descripcion;
+    private Acta acta;
+    private boolean resuelta;
 
-    private final List<ObservadorElectoral> observadores;
-    private final List<Alerta> historialAlertas;
-
-    public NotificadorAlertas() {
-        this.observadores = new ArrayList<>();
-        this.historialAlertas = new ArrayList<>();
+    public Alerta(String descripcion, Acta acta) {
+        this.descripcion = descripcion;
+        this.acta = acta;
+        this.resuelta = false;
     }
 
-    public void suscribir(ObservadorElectoral observador) {
-        if (observador == null) {
-            throw new IllegalArgumentException("El observador electoral no puede ser nulo.");
-        }
-        if (observadores.contains(observador)) {
-            throw new IllegalArgumentException("El observador ya se encuentra suscrito.");
-        }
-        observadores.add(observador);
-    }
+    public void resolver() { resuelta = true; }
 
-    public void desuscribir(ObservadorElectoral observador) {
-        if (observador == null) {
-            throw new IllegalArgumentException("El observador a desuscribir no puede ser nulo.");
-        }
-        if (!observadores.remove(observador)) {
-            throw new IllegalStateException("El observador no estaba suscrito al notificador.");
-        }
-    }
+    public String getDescripcion() { return descripcion; }
+    public Acta getActa() { return acta; }
+    public boolean isResuelta() { return resuelta; }
 
-    public void notificarAlerta(Alerta alerta) {
-        if (alerta == null) {
-            throw new IllegalArgumentException("No se puede emitir una alerta nula.");
-        }
-        historialAlertas.add(alerta);
-        for (ObservadorElectoral observador : observadores) {
-            observador.actualizar(alerta);
-        }
-    }
-
-    public void notificarCierreMesa(Mesa mesa, Acta acta) {
-        if (mesa == null) {
-            throw new IllegalArgumentException("La mesa cerrada no puede ser nula.");
-        }
-        if (acta == null) {
-            throw new IllegalArgumentException("El acta de cierre no puede ser nula.");
-        }
-        Alerta alertaCierre = new Alerta("Cierre registrado en la mesa: " + mesa.toString(), acta);
-        notificarAlerta(alertaCierre);
-    }
-
-    public List<ObservadorElectoral> getObservadores() {
-        return Collections.unmodifiableList(observadores);
-    }
-
-    public List<Alerta> getHistorialAlertas() {
-        return Collections.unmodifiableList(historialAlertas);
+    @Override
+    public String toString() {
+        return "Alerta{acta=" + acta.getId() + ", descripcion=" + descripcion + ", resuelta=" + resuelta + "}";
     }
 }
